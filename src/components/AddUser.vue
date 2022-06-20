@@ -33,12 +33,10 @@ export default {
       name: null,
       phone: null,
       boss: null,
-      id: 0,
+      id: 0
     }
   },
   props: ['dataLocalStorage'],
-  mounted () {
-  },
   methods: {
     addDataInLocalStorage () {
       this.id = localStorage.length - 1
@@ -50,9 +48,9 @@ export default {
           boss: this.boss,
           employees: []
         }
-      this.$emit('add-user', dataFormAddUser)
-      localStorage.setItem(this.id, JSON.stringify(dataFormAddUser))
-      this.id++
+        this.$emit('add-user', dataFormAddUser)
+        localStorage.setItem(this.id, JSON.stringify(dataFormAddUser))
+        this.id++
       }
     }
   }

@@ -31,13 +31,13 @@
 </template>
 
 <script>
-import AddUser from './AddUser.vue' 
+import AddUser from './AddUser.vue'
 
 export default {
   data () {
     return {
       dataLocalStorage: [],
-      statusModal: false,
+      statusModal: false
     }
   },
   mounted () {
@@ -51,9 +51,8 @@ export default {
       }
     },
     loadDataAddUser (dataFormAddUser) {
-      
       for (let i = 0; i < localStorage.length - 1; i++) {
-        if (dataFormAddUser.boss == this.dataLocalStorage[i].name) {
+        if (dataFormAddUser.boss === this.dataLocalStorage[i].name) {
           this.dataLocalStorage[i].employees.push(dataFormAddUser)
           localStorage.removeItem(i)
           localStorage.setItem(i, JSON.stringify(this.dataLocalStorage[i]))
@@ -63,21 +62,21 @@ export default {
     },
     sortTable () {
       const getSort = ({ target }) => {
-        const order = (target.dataset.order = -(target.dataset.order || -1));
-        const index = [...target.parentNode.cells].indexOf(target);
-        const collator = new Intl.Collator(['en', 'ru'], { numeric: true });
+        const order = (target.dataset.order = -(target.dataset.order || -1))
+        const index = [...target.parentNode.cells].indexOf(target)
+        const collator = new Intl.Collator(['en', 'ru'], { numeric: true })
         const comparator = (index, order) => (a, b) => order * collator.compare(
-            a.children[index].innerHTML,
-            b.children[index].innerHTML
-        );
-        
-        for(const tBody of target.closest('table').tBodies)
-            tBody.append(...[...tBody.rows].sort(comparator(index, order)));
-
-        for(const cell of target.parentNode.cells)
-            cell.classList.toggle('sorted', cell === target);
-    };
-    document.querySelectorAll('.table_sort').forEach(tableTH => tableTH.addEventListener('click', () => getSort(event)));
+          a.children[index].innerHTML,
+          b.children[index].innerHTML
+        )
+        for (const tBody of target.closest('table').tBodies) {
+          tBody.append(...[...tBody.rows].sort(comparator(index, order)))
+        }
+        for (const cell of target.parentNode.cells) {
+          cell.classList.toggle('sorted', cell === target)
+        }
+      }
+      document.querySelectorAll('.table_sort').forEach(tableTH => tableTH.addEventListener('click', () => getSort(event)))
     }
   },
   components: {
@@ -102,7 +101,6 @@ export default {
     width: 100%;
   }
   table {
-    
     border-collapse: collapse;
   }
   td {
